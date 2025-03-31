@@ -1,0 +1,113 @@
+::-webkit-scrollbar { display: none; }
+
+.generate-page {
+  width: 100vw;
+  font-family: sans-serif;
+  display: block;
+}
+
+.main-area {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: block;
+}
+
+.background {
+  position: absolute;
+  
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-color: #fff;
+
+  background-image: url('/background.png');
+  background-size: contain;         /* 핵심: 전체 이미지 보이게 */
+  background-repeat: no-repeat;     /* 반복 방지 */
+  background-position: center;      /* 가운데 정렬 */
+  
+  z-index: 0;
+}
+
+
+.label-container {
+  position: absolute;
+  top: 45%;
+  left: 47.5%;
+  transform: translate(-50%, -50%) rotate(3deg);
+  width: 35%;
+  z-index: 1;
+
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+
+  .label {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+
+  .number {
+    background: transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-family: Consolas, 'Courier New', monospace;
+  }
+}
+
+.control-area {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  background: rgba(255, 255, 255, 0.9);
+
+  padding: 10px 0;
+  gap: 1rem;
+
+  .slider-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .slider-group label {
+    font-weight: 600;
+  }
+
+  .slider-group input[type='range'],
+  .slider-group input[type='number'] {
+    flex: 1;
+    min-width: 50px;
+    padding: 0.3rem;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    
+    background-color: transparent;
+    color: #000;
+    border: 1px solid #000;
+
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #000;
+    color: #fff;
+  }
+}
