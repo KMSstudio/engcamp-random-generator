@@ -13,15 +13,24 @@ export default function RandomArea() {
     const parsedNum = parseInt(num);
     const parsedStart = parseInt(start);
     const parsedEnd = parseInt(end);
-    if (
-      isNaN(parsedNum) || isNaN(parsedStart) || isNaN(parsedEnd) ||
-      parsedEnd < parsedStart || parsedNum <= 0
-    ) return;
+    if ( isNaN(parsedNum) || isNaN(parsedStart) || isNaN(parsedEnd) || parsedEnd < parsedStart || parsedNum <= 0 ) return;
 
-    const newNumbers = Array.from({ length: parsedNum }, () =>
-      Math.floor(Math.random() * (parsedEnd - parsedStart + 1)) + parsedStart
-    );
-    setNumbers(newNumbers);
+    let candidates: number[] = [];
+    const result: number[] = [];
+
+    while (result.length < parsedNum) {
+      // If length of candidate is 0, refill it.
+      if (candidates.length === 0) { candidates = Array.from({ length: parsedEnd - parsedStart + 1 }, (_, i) => parsedStart + i); }
+
+      // Pick random index
+      const idx = Math.floor(Math.random() * candidates.length);
+      const selected = candidates[idx];
+      result.push(selected);
+      // Remove selected item from candidate pool
+      candidates.splice(idx, 1);
+    }
+
+    setNumbers(result);
   };
 
   return (
