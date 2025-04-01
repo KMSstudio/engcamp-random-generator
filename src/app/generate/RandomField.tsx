@@ -61,8 +61,8 @@ export default function RandomArea() {
         </div>
 
         <div className="button-group">
-          <button onClick={regenerate}>Regenerate</button>
-          <button onClick={() => setNumbers([])}>Clear</button>
+          <button onClick={() => { regenerate();   window.scrollTo(0, 0); }}>Generate</button>
+          <button onClick={() => { setNumbers([]); window.scrollTo(0, 0); }}>Clear</button>
         </div>
       </div>
     </>
