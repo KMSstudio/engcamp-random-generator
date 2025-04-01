@@ -35,6 +35,55 @@ It is built using **Next.js** with **TypeScript (TSX)** and provides an interact
 
 ---
 
+## Random Number Generation Logic
+
+To ensure more variety and prevent repeated values too frequently, this generator uses a **pseudo-unique sampling method** based on the following steps:
+
+1. **Initialize the candidate pool**:  
+   Create an array containing all integers in the range `[start, end]`.
+
+2. **Random sampling without replacement**:  
+   Randomly select one value from the pool and remove it. Repeat until the desired count (`num`) is reached.
+
+3. **Pool refill if exhausted**:  
+   If the pool runs out of values before reaching `num`, refill it with the full range again.
+
+This approach increases randomness while minimizing duplication.
+
+---
+
+### Generation Code Snippet (TSX)
+
+```tsx
+const regenerate = () => {
+  const parsedNum = parseInt(num);
+  const parsedStart = parseInt(start);
+  const parsedEnd = parseInt(end);
+  if (
+    isNaN(parsedNum) || isNaN(parsedStart) || isNaN(parsedEnd) ||
+    parsedEnd < parsedStart || parsedNum <= 0
+  ) return;
+
+  let candidates: number[] = [];
+  const result: number[] = [];
+
+  while (result.length < parsedNum) {
+    if (candidates.length === 0) {
+      candidates = Array.from({ length: parsedEnd - parsedStart + 1 }, (_, i) => parsedStart + i);
+    }
+
+    const idx = Math.floor(Math.random() * candidates.length);
+    const selected = candidates[idx];
+    result.push(selected);
+    candidates.splice(idx, 1);
+  }
+
+  setNumbers(result);
+};
+```
+
+---
+
 ## Getting Started
 
 ```bash
