@@ -5,7 +5,7 @@ import "./index.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "새공캠 경품추첨기",
+  title: "제1회 새공캠 경품 추첨",
   description: "서울대학교 공과대학 새내기 공학 캠프 경품추첨",
   icons: {
     icon: "/favicon.png"
