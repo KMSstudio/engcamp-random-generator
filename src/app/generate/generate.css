@@ -93,21 +93,26 @@
     padding: 0.3rem;
   }
 
-  button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    
-    background-color: transparent;
-    color: #000;
-    border: 1px solid #000;
+  .button-group {
+    display: flex;
+    gap: 0.5rem;
 
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  button:hover {
-    background-color: #000;
-    color: #fff;
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      
+      background-color: transparent;
+      color: #000;
+      border: 1px solid #000;
+  
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    button:hover {
+      background-color: #000;
+      color: #fff;
+    }
   }
 }

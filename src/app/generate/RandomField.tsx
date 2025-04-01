@@ -60,7 +60,10 @@ export default function RandomArea() {
           <input type="number" value={end} onChange={(e) => setEnd(e.target.value)} />
         </div>
 
-        <button onClick={regenerate}>Regenerate</button>
+        <div className="button-group">
+          <button onClick={regenerate}>Regenerate</button>
+          <button onClick={() => setNumbers([])}>Clear</button>
+        </div>
       </div>
     </>
   );
