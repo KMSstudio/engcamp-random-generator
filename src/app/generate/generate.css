@@ -32,7 +32,6 @@
   z-index: 0;
 }
 
-
 .label-container {
   position: absolute;
   top: 45%;
@@ -61,7 +60,7 @@
     background: transparent;
     padding: 0.5rem 1rem;
     border-radius: 8px;
-    font-family: Consolas, 'Courier New', monospace;
+    font-family: 'Jalnan', monospace;
   }
 }
 
