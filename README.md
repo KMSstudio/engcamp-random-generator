@@ -37,18 +37,20 @@ It is built using **Next.js** with **TypeScript (TSX)** and provides an interact
 
 ## Random Number Generation Logic
 
-To ensure more variety and prevent repeated values too frequently, this generator uses a **pseudo-unique sampling method** based on the following steps:
+To ensure greater variety and reduce frequent duplication, this logic uses a **pseudo-unique sampling method** based on the following steps:
 
-1. **Initialize the candidate pool**:  
-   Create an array containing all integers in the range `[start, end]`.
+1. **Candidate Pool Initialization**:  
+  Create an array containing all integers in the range `[start, end]` **excluding all random values generated so far since the page was loaded**.  
+  For example, if `start = 1`, `end = 5`, and previously generated numbers were `4`, `8`, and `10`, then the candidate pool will be `[1, 2, 3, 5]`.  
+  If the candidate pool is empty, **display `[-1]` on the screen**.
 
-2. **Random sampling without replacement**:  
-   Randomly select one value from the pool and remove it. Repeat until the desired count (`num`) is reached.
+2. **Random Sampling Without Replacement**:  
+  Randomly select values from the candidate pool without replacement. Remove the selected value from the pool. Repeat until the desired count (`num`) is reached.
 
-3. **Pool refill if exhausted**:  
-   If the pool runs out of values before reaching `num`, refill it with the full range again.
+3. **Pool Refill If Exhausted**:  
+  If the candidate pool is exhausted before reaching `num`, refill the pool with the full `[start, end]` range and continue sampling.
 
-This approach increases randomness while minimizing duplication.
+This method increases randomness while minimizing duplication.
 
 ---
 
@@ -59,26 +61,29 @@ const regenerate = () => {
   const parsedNum = parseInt(num);
   const parsedStart = parseInt(start);
   const parsedEnd = parseInt(end);
-  if (
-    isNaN(parsedNum) || isNaN(parsedStart) || isNaN(parsedEnd) ||
-    parsedEnd < parsedStart || parsedNum <= 0
-  ) return;
+  if ( isNaN(parsedNum) || isNaN(parsedStart) || isNaN(parsedEnd) || parsedEnd < parsedStart || parsedNum <= 0 ) return;
 
   let candidates: number[] = [];
   const result: number[] = [];
 
   while (result.length < parsedNum) {
-    if (candidates.length === 0) {
-      candidates = Array.from({ length: parsedEnd - parsedStart + 1 }, (_, i) => parsedStart + i);
+    // If length of candidate is 0, refill it.
+    if (candidates.length === 0) { 
+      let basePool = Array.from({ length: parsedEnd - parsedStart + 1 }, (_, i) => parsedStart + i);
+      candidates = basePool.filter(n => !totalRandom.includes(n));
     }
+    if (candidates.length === 0) { setNumbers([-1]); return; }
 
+    // Pick random index
     const idx = Math.floor(Math.random() * candidates.length);
     const selected = candidates[idx];
     result.push(selected);
+    // Remove selected item from candidate pool
     candidates.splice(idx, 1);
   }
 
   setNumbers(result);
+  setTotalRandom(prev => [...prev, ...result]);
 };
 ```
 

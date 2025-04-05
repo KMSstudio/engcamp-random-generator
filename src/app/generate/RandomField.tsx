@@ -8,6 +8,7 @@ export default function RandomArea() {
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
   const [numbers, setNumbers] = useState<number[]>([]);
+  const [totalRandom, setTotalRandom] = useState<number[]>([]);
 
   const regenerate = () => {
     const parsedNum = parseInt(num);
@@ -20,7 +21,11 @@ export default function RandomArea() {
 
     while (result.length < parsedNum) {
       // If length of candidate is 0, refill it.
-      if (candidates.length === 0) { candidates = Array.from({ length: parsedEnd - parsedStart + 1 }, (_, i) => parsedStart + i); }
+      if (candidates.length === 0) { 
+        let basePool = Array.from({ length: parsedEnd - parsedStart + 1 }, (_, i) => parsedStart + i);
+        candidates = basePool.filter(n => !totalRandom.includes(n));
+      }
+      if (candidates.length === 0) { setNumbers([-1]); return; }
 
       // Pick random index
       const idx = Math.floor(Math.random() * candidates.length);
@@ -31,6 +36,7 @@ export default function RandomArea() {
     }
 
     setNumbers(result);
+    setTotalRandom(prev => [...prev, ...result]);
   };
 
   return (
@@ -63,6 +69,7 @@ export default function RandomArea() {
         <div className="button-group">
           <button onClick={() => { regenerate();   window.scrollTo(0, 0); }}>Generate</button>
           <button onClick={() => { setNumbers([]); window.scrollTo(0, 0); }}>Clear</button>
+          <button onClick={() => { setNumbers([]); window.scrollTo(0, 0); setTotalRandom([]); }}>HardClear</button>
         </div>
       </div>
     </>
