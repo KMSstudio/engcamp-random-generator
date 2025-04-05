@@ -24,7 +24,7 @@
 
   background-color: #fff;
 
-  background-image: url('/background.png');
+  background-image: url('/image/background.png');
   background-size: contain;         /* 핵심: 전체 이미지 보이게 */
   background-repeat: no-repeat;     /* 반복 방지 */
   background-position: center;      /* 가운데 정렬 */
